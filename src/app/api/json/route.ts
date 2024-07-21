@@ -1,6 +1,6 @@
 import { EXAMPLE_ANSWER, EXAMPLE_PROMPT, openai } from "@/lib/ai";
 import { inputDataSchema } from "@/lib/schema";
-import { jsonSchemaToZod } from "@/lib/utils";
+import { jsonSchemaToZod, RetryablePromise } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
