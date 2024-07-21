@@ -17,7 +17,7 @@ export const POST = async (req: NextRequest) => {
     2
   )}\n\n-----------\nValid JSON output in expected format:`;
 
-  //   Retry Mechanism
+  // Use a retry mechanism to handle potential API failures
   const validatedResult = await RetryablePromise.retry(
     3,
     async (resolve, reject) => {

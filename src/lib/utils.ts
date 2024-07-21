@@ -6,6 +6,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Converts a JSON schema to a Zod schema for validation
+ * @param schema - The input JSON schema
+ * @returns A Zod schema corresponding to the input JSON schema
+ */
+
 export function jsonSchemaToZod(schema: any): ZodTypeAny {
   const type = determineSchemaType(schema);
 
@@ -44,7 +50,17 @@ function determineSchemaType(schema: any) {
   return schema.type;
 }
 
+/**
+ * A Promise class with built-in retry functionality
+ */
 export class RetryablePromise<T> extends Promise<T> {
+  /**
+   * Retries a promise-based operation a specified number of times
+   * @param retries - The number of retry attempts
+   * @param executor - The promise executor function
+   * @returns A promise that resolves with the operation result or rejects after all retries are exhausted
+   */
+
   static async retry<T>(
     retries: number,
     executor: PromiseExecutor<T>
