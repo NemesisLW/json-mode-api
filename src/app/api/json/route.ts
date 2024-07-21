@@ -2,6 +2,7 @@ import { EXAMPLE_ANSWER, EXAMPLE_PROMPT, openai } from "@/lib/ai";
 import { inputDataSchema } from "@/lib/schema";
 import { jsonSchemaToZod, RetryablePromise } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
@@ -48,7 +49,16 @@ export const POST = async (req: NextRequest) => {
         const parsedResult = dynamicSchema.parse(JSON.parse(text || ""));
         return resolve(parsedResult);
       } catch (e) {
-        reject(e);
+        if (e instanceof z.ZodError) {
+          return NextResponse.json(
+            { error: "Invalid input format", details: e.errors },
+            { status: 400 }
+          );
+        }
+        return NextResponse.json(
+          { error: "Internal server error" },
+          { status: 500 }
+        );
       }
     }
   );

@@ -38,7 +38,6 @@ export function jsonSchemaToZod(schema: any): ZodTypeAny {
 }
 
 function determineSchemaType(schema: any) {
-  //
   if (!schema.hasOwnProperty("type")) {
     //  Array does not exist on the type
     if (Array.isArray(schema)) {
